@@ -1,15 +1,27 @@
 
 const express = require("express");
-//el request no es solo un título. Es un doc: título (url por ej), contenido(json por ejem), cabeceras (info del contenido). Partes: /about 'endpoint', {img, text, etc } "body" y "header" nota adicional que describ y va el código de estado. Es importante en express
+const app = express()
+app.get('/hello/:username', (req, res)=>{//parametro desde la url
 
-const app = express();
-app.use(express.urlencoded({extended: false})) //para formularios
-app.use(express.json())
-//app.use(express.text()) con esto puede procesar el texto
-app.post('/user', (req, res)=>{
-    console.log(req.body)
-    res.send('usario creado')
+    res.send(`Hello ${req.params.username.toUpperCase()}`)
 })
+
+app.get('/add/:x/:y', (req, res)=>{//parametro desde la url
+    const {x, y} = req.params
+const result = parseInt(x) + parseInt(y)
+    res.send(`Result ${result}`)
+})
+
+app.get('/users/:name/photo', (req, res)=>{//parametro desde la url
+   if(req.params.name === "emi"){
+    return res.sendFile('./Javascript.png', {
+        root: __dirname
+    })
+   }
+   res.send('usuario sin acceso')
+    
+})
+
 
 
 app.listen(3000);
