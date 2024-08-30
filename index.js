@@ -1,23 +1,15 @@
 const express = require("express");
+
+const morgan = require('morgan')
+
 const app = express();
-//middleware
-app.use((req, res, next) => {
-    console.log(`Route: ${req.url} Metodo: ${req.method}`);
-    next();
-  });
+//middleware, MORGAN
+app.use(morgan('dev'));//muestra mensaje por consola
 
 app.get("/profile", (req, res) => {
     res.send("profile page");
   });
 
-//middleware
-app.use((req, res, next) => {
-  if (req.query.login === "emilianostic.com") {
-    next();
-  } else {
-    res.send("no autorizado");
-  }
-});
 
 app.get("/dashboard", (req, res) => {
   res.send("dashboard page");
