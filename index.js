@@ -2,6 +2,12 @@
 const express = require("express");
 const app = express()
 
+//all method funciona como PUT GET POST DELETE
+app.all('/info', (req, res)=>{
+ 
+    res.send('server info')
+})
+
 app.get('/search', (req, res)=>{
     console.log(req.query)
     if(req.query.q === 'javascript books'){//en la url coloco search?q=.... % es el espacio
